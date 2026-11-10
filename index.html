@@ -135,19 +135,19 @@ const T=s=>s.trim().split(/\s+/);
 
 /* ステージ(7つ) */
 const STAGES=[
- {n:'うまれたて期',a:0,b:24,bg:'#fff4e6',intro:'ここは いろどり町。ぽかぽか あったかい はるの ひ。',
+ {n:'ほやほやボン期',a:0,b:24,bg:'#fff4e6',intro:'ここは いろどり町。ぽかぽか あったかい はるの ひ。',
   board:T('start niko sho event niji hyoe oko nemu chance niko trouble event sho nemu niji oko hyoe chance niko event trouble nemu sho goal')},
- {n:'ことば期',a:24,b:72,bg:'#fff0f4',intro:'ようちえんの ころ。にぎやかな おともだちが ふえるよ。もぐボンと てれボンも あらわれるかも！',
+ {n:'ちびボン期',a:24,b:72,bg:'#fff0f4',intro:'ようちえんの ころ。にぎやかな おともだちが ふえるよ。もぐボンと てれボンも あらわれるかも！',
   board:T('start tomo niko deka oko event hyoe tomo nemu chance mogu deka tere niji trouble tomo event niko deka hyoe oko chance mogu tere nemu goal')},
- {n:'まなび期',a:72,b:144,bg:'#eefaf0',intro:'しょうがっこうの ころ。べんきょうも あそびも おかいものも！ おこづかいで かいものが できるよ。',
+ {n:'のびのびボン期',a:72,b:144,bg:'#eefaf0',intro:'しょうがっこうの ころ。べんきょうも あそびも おかいものも！ おこづかいで かいものが できるよ。',
   board:T('start tomo gaku deka niko shop event oko tomo gaku hyoe chance mogu deka tere trouble niji gaku tomo event nemu shop deka chance tomo trouble niko goal')},
- {n:'じりつ期',a:144,b:264,bg:'#fff5e8',intro:'せいしゅんの ころ。しんろを きめて、アルバイトや こいも はじまるよ。',
+ {n:'きらきらボン期',a:144,b:264,bg:'#fff5e8',intro:'せいしゅんの ころ。しんろを きめて、アルバイトや こいも はじまるよ。',
   board:T('start gaku tomo work shop love oko event deka gaku hyoe chance tere tomo work niji trouble love mogu event nemu deka gaku chance work shop trouble niko goal')},
- {n:'はたらき期',a:264,b:480,bg:'#eef3ff',intro:'おとなの はじまり。おしごと、こい、けっこん…じぶんで えらぶ みちが ふえるよ。',
+ {n:'おとなボン期',a:264,b:480,bg:'#eef3ff',intro:'おとなの はじまり。おしごと、こい、けっこん…じぶんで えらぶ みちが ふえるよ。',
   board:T('start work love shop deka fam niko event work hosp oko chance tomo love tere trouble work fam hyoe event mogu deka niji shop work chance trouble goal')},
- {n:'ゆとり期',a:480,b:780,bg:'#f6f0e6',intro:'いそがしい まいにち。かぞくも しごとも からだも だいじに。',
+ {n:'べてらんボン期',a:480,b:780,bg:'#f6f0e6',intro:'いそがしい まいにち。かぞくも しごとも からだも だいじに。',
   board:T('start work fam hosp shop deka niko event work fam oko chance hyoe hosp nemu trouble work deka mogu event tere fam niji shop work chance goal')},
- {n:'おだやか期',a:780,b:1080,bg:'#fdf0e0',intro:'ゆっくり すぎる じかん。おもいでを ふりかえりながら、これからも ずっと ここで。',
+ {n:'おだやかボン期',a:780,b:1080,bg:'#fdf0e0',intro:'ゆっくり すぎる じかん。おもいでを ふりかえりながら、これからも ずっと ここで。',
   board:T('start fam deka hosp niko event shop oko fam chance nemu deka tere hosp trouble mogu event niji fam hyoe deka chance fam goal')}
 ];
 
@@ -205,7 +205,7 @@ const EVS=[
 const E=(k,s,t,x,d,o)=>EVS.push(Object.assign({k,s,t,x,d},o||{}));
 const EC=(k,s,t,x,ch,o)=>EVS.push(Object.assign({k,s,t,x,ch:ch.map(c=>({l:c[0],r:c[1],d:c[2]||{},o:c[3]||{}}))},o||{}));
 const married=()=>S.partner&&S.partner.married;
-/* うまれたて期 */
+/* ほやほやボン期 */
 E('sho',[0,0],'ころんじゃった','よちよち あるいたら、ころんじゃった…。',{hp:-6,stress:6});
 E('sho',[0,0],'おもちゃが こわれた','だいすきな おもちゃが こわれちゃった。',{happy:-8});
 E('sho',[0,0],'おやボンが おでかけ','おやボンが ちょっと おでかけ。さみしいな…。',{happy:-5,stress:6});
@@ -234,7 +234,7 @@ E('chance',[0,2],'おおあたり！','おおあたり！ ごほうびを いっ
 E('trouble',[0,2],'かぜを ひいた','ごほごほ…。ねつが でちゃった。',{hp:-12,stress:5,money:-300},{ins:1});
 E('trouble',[0,1],'おもらし','あっ…。ちょっと はずかしい。',{popular:-3,stress:6});
 E('trouble',[0,1],'ないちゃった','わーん！ どうして なくのか わからない…。',{hp:-4,stress:8});
-/* ことば期 */
+/* ちびボン期 */
 E('tomo',[1,1],'すなばで あそぼう','すなの おしろを みんなで つくった。おおきな おしろが できた！',{friend:6,happy:5});
 EC('tomo',[1,2],'おもちゃを かして','となりの こに「おもちゃ かして」と いわれた。どうする？',[['かしてあげる','「ありがとう！」と わらってくれた。いっしょに あそんだよ。',{friend:6,happy:3}],['いやだ！','「ふんだ」と いわれちゃった。ちょっと むねが ちくっと する。',{friend:-4,stress:3}]]);
 E('tomo',[1,2],'はじめての おともだち','「いっしょに あそぼ！」と こえを かけられた。',{friend:8,popular:3});
@@ -248,7 +248,7 @@ E('event',[1,1],'おゆうぎかい','ステージで ダンス！ みんなの 
 E('chance',[1,3],'じゃんけん たいかい','じゃんけんで かちまくり！ ヒーローに なった。',{popular:5,happy:5});
 E('trouble',[1,2],'まいごに なっちゃった','おまつりで まいご。さみしくて ないちゃった…。',{stress:8,hp:-2});
 E('trouble',[1,3],'むしばが いたい','おはが ずきずき…。はいしゃさんへ。',{hp:-6,stress:4,money:-500},{ins:1});
-/* まなび期 */
+/* のびのびボン期 */
 E('tomo',[2,3],'ドッジボール','みんなで ドッジボール！ ボールを うけとめた！',{hp:4,friend:6,happy:4});
 E('tomo',[2,3],'ひみつきち','うらやまに ひみつきちを つくった。ともだちと ひみつの やくそく。',{friend:8,happy:5});
 EC('tomo',[2,3],'ともだちと けんか','ささいな ことで ともだちと けんかに なった…。',[['じぶんから あやまる','「ごめん」「ぼくも ごめん」。なかなおり できた！',{friend:4,stress:-4}],['ほうっておく','きまずい まま じかんが すぎた…。',{friend:-3,stress:5}]]);
@@ -269,7 +269,7 @@ E('trouble',[2,3],'いじわるされた','いやな ことを いわれた。�
 E('trouble',[2,3],'かぜで おやすみ','ねつが でて がっこうを おやすみ。',{hp:-10,stress:3,money:-500},{ins:1});
 E('trouble',[2,3],'わすれもの','きょうに かぎって えんぴつが ない！',{stress:4,study:-2});
 E('chance',[2,4],'クラスの にんきもの','きまぐれで ほめられた。クラスで ちょっと にんきもの！',{popular:6,happy:4});
-/* じりつ期 */
+/* きらきらボン期 */
 E('gaku',[3,3],'きまつテスト','ひっしで べんきょうした きまつテスト。てごたえは…ある！',{study:6,stress:6});
 EC('gaku',[3,3],'ふくしゅう する？','テストまえ。ねる？ ふくしゅう する？',[['ふくしゅう する','ちからが ついた きがする。ねぶそくだけど。',{study:8,stress:5,hp:-3}],['ぐっすり ねる','あたまが すっきり。ほどほどに できた。',{hp:5,stress:-5,study:2}]]);
 E('gaku',[3,3],'しんろの そうだん','せんせいと しんろの そうだん。ぼんやりと みらいが みえてきた。',{study:3,stress:-3});
@@ -285,7 +285,7 @@ E('event',[3,3],'そつぎょうしき','ともだちと わかれる ひ。な�
 E('event',[3,3],'せいじんしき','おとなの なかまいり。ふりそでや はかま すがたが まぶしい。',{happy:8,popular:4,friend:4});
 E('trouble',[3,6],'さいふを おとした','さいふが ない！ ひっしで さがした。',{money:-2000,stress:6});
 E('trouble',[3,4],'ねぼう','だいじな ひに ねぼうして…。ダッシュ！',{stress:6,hp:-3});
-/* はたらき期 */
+/* おとなボン期 */
 E('tomo',[4,5],'ともだちと ごはん','ひさしぶりに ともだちと ごはん。ぐちも えがおも いっぱい。',{friend:6,happy:6,money:-4000});
 E('tomo',[4,6],'ともだちの そうだん','ともだちの なやみを ゆっくり きいた。「ありがとう」と いわれて、じぶんも すっきり。',{friend:7,stress:-3});
 
@@ -303,7 +303,7 @@ E('chance',[3,6],'ぐうぜんの さいかい','まちで ぐうぜん とも�
 E('deka',[4,6],'ふたりで ドライブ','ふたりで ドライブ。うみを みながら おべんとう。',{happy:10,stress:-8,money:-8000},{coll:'うみの かいがら'});
 E('deka',[3,6],'いろどり町の さんぽ','しらない みちを さんぽ。ちいさな おみせを みつけた。',{happy:6,stress:-6});
 E('deka',[4,6],'しゅみの こうざ','しゅみの こうざに さんか。あたらしい ともだちが できた。',{study:5,friend:4,happy:5,money:-5000},{coll:'てづくりの さくひん'});
-/* ゆとり期 */
+/* べてらんボン期 */
 E('work',[5,5],'しょうしんした','しょうしんが きまった！ せきにんが ふえるけど うれしい。',{popular:7,happy:6,stress:5,money:100000});
 E('work',[5,5],'ざんぎょうの まいにち','じかんが たりない まいにち。からだが ひめいを あげている。',{stress:10,hp:-6,money:30000});
 E('work',[5,5],'しごとの なかま','なかまと のみに いって、しごとの はなしで もりあがった。',{friend:6,happy:5,money:-5000});
@@ -330,7 +330,7 @@ E('hosp',[4,6],'けんこう しんだん','しんだんの けっかは ばっ�
 E('hosp',[4,6],'ちょっと ちりょう','ちょっと ちょうしが わるかった。ちりょうして すっきり！',{hp:16,money:-10000},{ins:1});
 E('hosp',[4,6],'おいしゃさんの はなし','おいしゃさんに せいかつの アドバイスを もらった。',{hp:8,study:3,stress:-3,money:-3000},{ins:1});
 E('hosp',[5,6],'リハビリ','からだを うごかす リハビリ。すこしずつ ちからが もどる。',{hp:14,stress:-3,money:-8000},{ins:1});
-/* おだやか期 */
+/* おだやかボン期 */
 E('event',[6,6],'ゆうやけを みる','きれいな ゆうやけ。いろんな ことを おもいだした。',{happy:8,stress:-10});
 E('event',[6,6],'まちの おまつり','いろどり町の おまつりで ながい ともだちと さいかい。',{friend:8,happy:8});
 E('event',[6,6],'おもいでの ばしょ','むかし あそんだ こうえんへ。ブランコは まだ そこに あった。',{happy:10,stress:-6});
@@ -700,7 +700,7 @@ function title(a){
  <button class="btn" id="b1">はじめから あそぶ</button>
  ${sv&&sv.screen==='play'&&!sv.done?'<button class="btn sec" id="b2">つづきから あそぶ</button>':''}
  <button class="btn gray" id="b3">きろく(いままでの ボン生・しょうごう)</button>
- <div class="small center" style="margin-top:10px">しさくばん2: うまれたて期〜おだやか期の ぜんぶ あそべるよ(つくりかけの ぶぶんも あるよ)</div>
+ <div class="small center" style="margin-top:10px">しさくばん2: ほやほやボン期〜おだやかボン期の ぜんぶ あそべるよ(つくりかけの ぶぶんも あるよ)</div>
  <div class="small center" style="margin-top:12px;opacity:.75;letter-spacing:.04em">© BON CREATIONS</div></div>`;
  $('#b1').onclick=async()=>{ if(sv&&sv.screen==='play'&&!sv.done){ const i=await choose({tag:'かくにん',title:'はじめから あそぶ？',text:'いまの つづきの データは きえて しまうよ。',options:[{l:'はじめから あそぶ'},{l:'やめる',sec:true}]}); if(i!==0) return; } wipe();S=newState();go('prologue'); };
  const b2=$('#b2'); if(b2) b2.onclick=()=>{S=sv;go('play');};
@@ -712,7 +712,7 @@ const PRO=[
  'ボン界は、にんげんの せかいとは べつの せかい。まちも、学校も、会社も、びょういんも ある。にんげんの せかいに よく にておるぞ。',
  'ここの すにんは、みんな ボン類。にんげんの きもちや ねがいから うまれた、2〜3とうしんの なかまたちなのだ。ボンは としを とっても ふけず、からだも かわらん。',
  'ボンは ある ひ とつぜん、もりや まちに ぽん！と あらわれる。さいしょに はなせるのは「ボン」だけ。まわりの ボンたちが ことばや くらしを おしえてくれるのだ。',
- 'この ゲームは、ボンの「けいけん」を あるく すごろく。「うまれたて期・ことば期・まなび期・じりつ期・はたらき期・ゆとり期・おだやか期」の 7つの じきを すすむのだ。',
+ 'この ゲームは、ボンの「けいけん」を あるく すごろく。「ほやほやボン期・ちびボン期・のびのびボン期・きらきらボン期・おとなボン期・べてらんボン期・おだやかボン期」の 7つの じきを すすむのだ。',
  'サイコロを ふって マスを すすむと、でんぐり返りな できごとが まっておる。しあわせな ことも、ちょっぴり つらい ことも あるぞ。',
  '「おこボン・にこボン・ひょえボン・ねむボン・もぐボン・てれボン」… いろんな ボンと なかよく なれば、いっしょに あそんだり、たすけて もらえたり。なかまは たからものなのだ！',
  '「たいりょく」「こうふくど」「にんき」「こうゆうど」「がくりょく」「ストレス」… ゲージの ばらんすが、お主の ボン生を かたちづくるのだ。',
